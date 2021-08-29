@@ -1,0 +1,63 @@
+#! /bin/bash
+
+OVERALLRC=0
+
+# --------------------
+# run the unit tests for named modules
+# sets OVERALLRC to the return code
+function run_verification() {
+  echo "==== running verification tests: ${tag}" | tee -a $OUTFILE
+  #COV_OPTS="--cov-branch --cov-config=../setup.cfg"
+  #UT_OPTS="--junit-xml=${OUT_DIR}/ut_result.xml --durations=10"
+
+  PYTHONPATH=$PYTHONPATH:${cwd} pytest ${UT_OPTS} ${COV_SRC} ${COV_OPTS} ${modules} | tee -a $OUTFILE
+  RC=${PIPESTATUS[0]}
+  OVERALLRC=$((OVERALLRC + RC))
+  echo "     ut RC=$RC" | tee -a $OUTFILE
+}
+
+## --------------------
+## run the coverage for the named includes
+## sets OVERALLRC to the return code
+#function run_coverage() {
+#  echo "==== running coverage report: ${tag}" | tee -a $OUTFILE
+#  coverage html -d ${OUT_DIR}/ut_coverage --omit="*/unit_tests/*" ${includes} | tee -a $OUTFILE
+#  RC=${PIPESTATUS[0]}
+#  OVERALLRC=$((OVERALLRC + RC))
+#  echo "     coverage RC=$RC" | tee -a $OUTFILE
+#}
+
+# ---- Main
+
+# create the out directory if needed
+cwd=$(pwd)
+OUT_DIR=${cwd}/out
+mkdir -p ${OUT_DIR}
+
+# initialize the output file
+OUTFILE=${OUT_DIR}/ut_results.txt
+echo | tee $OUTFILE
+
+if [[ -z $1 || $1 == 'all' ]]; then
+  tag='all'
+  COV_SRC=
+  modules=
+  includes=
+elif [[ -z $1 || $1 == 'smoketest1' ]]; then
+  tag='smoketest1'
+  COV_SRC=
+  modules='-m smoketest1'
+  includes=
+else
+  echo "ERR  Unknown argument: $1" | tee -a $OUTFILE
+  echo "ERR  only recognize  : all, atmcore, pdm, barnacle, sbvt" | tee -a $OUTFILE
+  exit 1
+fi
+
+# run tests
+run_verification
+#run_coverage
+
+echo "     overall rc $OVERALLRC : ${tag}" | tee -a $OUTFILE
+
+exit $OVERALLRC
