@@ -35,7 +35,7 @@ OUT_DIR=${cwd}/out
 mkdir -p ${OUT_DIR}
 
 # initialize the output file
-OUTFILE=${OUT_DIR}/ut_results.txt
+OUTFILE=${OUT_DIR}/pytest_ver.txt
 echo | tee $OUTFILE
 
 if [[ -z $1 || $1 == 'all' ]]; then

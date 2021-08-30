@@ -1,0 +1,52 @@
+{
+  // location of output and report files
+  "outdir": "out",
+
+  // one of: dev, hd (currently only dev is recognized)
+  "storage_type": "dev",
+
+  // one of: formal, dryrun, dev
+  "test_run_type": "dev",
+
+  // the id that identifies this test run
+  "test_run_id": "dev-001",
+
+  // format of the date time stamp on the reports
+  "dts_format": "%Y-%m-%d %H:%M:%S %Z",
+
+  // tp_results report: header/footer
+  "tp_results": {
+    "orientation": "letter",
+    "header": {
+      "left": "DCO:TPC-003<br/>Rev. A",
+      "middle": "<b>Test Protocol with Results</b>"
+    },
+    "footer": {
+      "middle": "(c)2021 This document is private and confidential.",
+      "right": "<pageno>"
+    }
+  },
+
+  // trace report: header/footer
+  "trace": {
+    "header": {
+      "left": "DCO:TM-004<br/>Rev. B",
+      "middle": "<b>Trace Matrix - Automated Tests</b>"
+    },
+    "footer": {
+      "middle": "(c)2021 This document is private and confidential.",
+      "right": "<pageno>"
+    }
+  },
+
+  // trace report: header/footer
+  "summary": {
+    "header": {
+      "middle": "<b>Automated Test Summary</b>"
+    },
+    "footer": {
+      "middle": "(c)2021 This document is private and confidential.",
+      "right": "<pageno>"
+    }
+  }
+}

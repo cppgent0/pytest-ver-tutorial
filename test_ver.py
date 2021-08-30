@@ -12,7 +12,8 @@ class TestPoc(unittest.TestCase):
         pass
 
     # --------------------
-    def tearDown(self):
+    @classmethod
+    def tearDownClass(cls):
         pth.report()
 
     # --------------------
