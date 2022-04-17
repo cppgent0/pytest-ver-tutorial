@@ -1,6 +1,6 @@
 # pytest-ver-tutorial
 
-Note: requires v0.0.3 or better
+Note: requires v0.0.4 or better
 
 ## To install
 

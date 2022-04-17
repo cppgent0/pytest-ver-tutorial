@@ -1,14 +1,24 @@
 import unittest
 
 import pytest
+
 from pytest_ver import pth
 
 
 # -------------------
 class TestPoc(unittest.TestCase):
 
+    # --------------------
+    @classmethod
+    def setUpClass(cls):
+        pth.init()
+
     # -------------------
     def setUp(self):
+        pass
+
+    # -------------------
+    def tearDown(self):
         pass
 
     # --------------------
@@ -30,20 +40,20 @@ class TestPoc(unittest.TestCase):
 
         pth.proto.step('verify1 everything is equal')
         # do a verification against a requirement
-        pth.ver.verify(x == y, reqid='SRS-001')
-        pth.ver.verify(x == 1, reqid='SRS-001')
+        pth.ver.verify_equal(x, y, reqids='SRS-001')
+        pth.ver.verify_equal(x, 1, reqids='SRS-001')
         # since all verifys passed, this step's result is PASS
 
         pth.proto.step('verify2')
-        pth.ver.verify(False, reqid='SRS-002')
-        pth.ver.verify(True, reqid='SRS-002')
-        pth.ver.verify(True, reqid='SRS-002')
+        pth.ver.verify(False, reqids='SRS-002')
+        pth.ver.verify(True, reqids='SRS-002')
+        pth.ver.verify(True, reqids='SRS-002')
         # since one verify failed, this step's result is FAIL
 
         pth.proto.step('verify3')
-        pth.ver.verify(True, reqid='SRS-003')
-        pth.ver.verify(True, reqid='SRS-003')
-        pth.ver.verify(False, reqid='SRS-003')
+        pth.ver.verify(True, reqids='SRS-003')
+        pth.ver.verify(True, reqids='SRS-003')
+        pth.ver.verify(False, reqids='SRS-003')
         # since one verify failed, this step's result is FAIL
 
     # --------------------
@@ -52,7 +62,7 @@ class TestPoc(unittest.TestCase):
         pth.proto.protocol('tp-002', 'test the init2')
 
         pth.proto.step('verify1 everything is equal')
-        pth.ver.verify(1 == 1, reqid='SRS-001')
+        pth.ver.verify_equal(1, 1, reqids='SRS-001')
         # note: this is the second time this requirment is verified
 
     # --------------------
@@ -60,4 +70,4 @@ class TestPoc(unittest.TestCase):
         pth.proto.protocol('tp-003', 'test the init3')
 
         pth.proto.step('verify1 everything is equal')
-        pth.ver.verify(1 == 1, reqid='SRS-004')
+        pth.ver.verify_equal(1, 1, reqids='SRS-004')
